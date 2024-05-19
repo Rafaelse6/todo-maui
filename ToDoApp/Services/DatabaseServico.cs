@@ -17,7 +17,7 @@ namespace ToDoApp.Services
             return _database.InsertAsync(item);
         }
 
-        public Task<List<T>> TodosAsync(T item)
+        public Task<List<T>> TodosAsync()
         {
             return _database.Table<T>().ToListAsync();
         }

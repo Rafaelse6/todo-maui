@@ -30,6 +30,20 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
+
+            <CollectionView x:Name="TarefasCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                            <Label Text="{Binding Titulo}" FontAttributes="Bold" Grid.Row="0"/>
+                            <Label Text="{Binding Descricao}" Grid.Row="1"/>
+                            <Label Text="{Binding NomeUsuario}" Grid.Row="2"/>
+                            <Label Text="{Binding DataCriacao}" Grid.Row="3"/>
+                            <Label Text="{Binding Status}" Grid.Row="4"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 

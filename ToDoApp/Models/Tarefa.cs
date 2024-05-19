@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using ToDoApp.Enums;
+using ToDoApp.Services;
 
 namespace ToDoApp.Models
 {
@@ -18,6 +19,14 @@ namespace ToDoApp.Models
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public int UsuarioId { get; set; }
+        public string NomeUsuario
+        {
+            get
+            {
+                if (this.UsuarioId == 0) return "Sem Usuário";
+                return UsuariosServico.Instancia().Todos().Find(u => u.Id == this.UsuarioId)?.Nome;
+            }
+        }
         public Status Status { get; set; }
     }
 }

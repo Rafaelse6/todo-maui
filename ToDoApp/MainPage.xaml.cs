@@ -8,32 +8,30 @@ namespace ToDoApp
     {
         int count = 0;
 
+        DatabaseServico<Tarefa> _tarefaService;
+
         public MainPage()
         {
             InitializeComponent();
+            _tarefaService = new DatabaseServico<Tarefa>(Db.DB_PATH);
+
+            CarregarTarefas();
         }
 
-        private async void OnCounterClicked(object sender, EventArgs e)
+        private async void CarregarTarefas()
         {
-            var tarefaService = new DatabaseServico<Tarefa>(Db.DB_PATH);
-            var tarefa = new Tarefa()
-            {
-                Titulo = "Lavar o carro",
-                Descricao = "Pegar o carro na garagem e levar no lava rápido",
-                Status = Enums.Status.Backlog,
-                UsuarioId = UsuariosServico.Instancia().Todos()[0].Id,
-            };
+            var tarefas = await _tarefaService.TodosAsync();
+            TarefasCollectionView.ItemsSource = tarefas;
+        }
 
-            await tarefaService.IncluirAsync(tarefa);
-
-            var quantidade = await tarefaService.QuantidadeAsync();
-
+        private void OnCounterClicked(object sender, EventArgs e)
+        {
             count++;
 
             if (count == 1)
-                CounterBtn.Text = $"Cliquei aqui {count} vezes - E tenho {quantidade} cadastrado no SQLite";
+                CounterBtn.Text = $"Cliquei aqui {count} vezes";
             else
-                CounterBtn.Text = $"Cliquei aqui {count} vezes - E tenho {quantidade} cadastrado no SQLite";
+                CounterBtn.Text = $"Cliquei aqui {count} vezes";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
