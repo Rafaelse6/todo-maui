@@ -22,6 +22,7 @@ namespace ToDoApp
         {
             var tarefas = await _tarefaService.TodosAsync();
             TarefasCollectionView.ItemsSource = tarefas;
+            TarefasCollectionTable.ItemsSource = tarefas;
         }
 
         private void OnCounterClicked(object sender, EventArgs e)
