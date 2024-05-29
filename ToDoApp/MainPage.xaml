@@ -23,11 +23,12 @@
                 <Grid Padding="5" 
                     BackgroundColor="LightGray" 
                     RowDefinitions="Auto" 
-                    ColumnDefinitions="0.1*, 0.3*, 0.2*, 0.2*">
+                    ColumnDefinitions="0.1*, 0.3*, 0.2*, 0.2*, 0.2*">
                     <Label Text="#" FontAttributes="Bold" Grid.Column="0" />
                     <Label Text="Titulo" FontAttributes="Bold" Grid.Column="1" />
                     <Label Text="Usuario" FontAttributes="Bold" Grid.Column="2" />
                     <Label Text="Status" FontAttributes="Bold" Grid.Column="3" />
+                    <Label Text="Ver" FontAttributes="Bold" Grid.Column="4" />
                 </Grid>
 
                 <CollectionView x:Name="TarefasCollectionTable">
@@ -35,11 +36,16 @@
                         <DataTemplate>
                             <Grid Padding="5" 
                                 RowDefinitions="Auto" 
-                                ColumnDefinitions="0.1*, 0.3*, 0.2*, 0.2*">
+                                ColumnDefinitions="0.1*, 0.3*, 0.2*, 0.2*, 0.2*">
                                 <Label Text="{Binding Id}" Grid.Column="0" />
                                 <Label Text="{Binding Titulo}" Grid.Column="1" />
                                 <Label Text="{Binding NomeUsuario}" Grid.Column="2" />
                                 <Label Text="{Binding Status}" Grid.Column="3" />
+                                <Button Text="Ver"
+                                        Command="{Binding Path=BindingContext.AlertCommand,  Source={x:Reference Name=TarefasCollectionTable}}"
+                                        CommandParameter="{Binding .}"
+                                        Grid.Column="4"
+                                        />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
