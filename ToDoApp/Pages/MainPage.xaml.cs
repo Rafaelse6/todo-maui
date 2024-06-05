@@ -3,29 +3,29 @@ using ToDoApp.Constants;
 using ToDoApp.Models;
 using ToDoApp.Services;
 
-namespace ToDoApp
+namespace ToDoApp.Pages
 {
     public partial class MainPage : ContentPage
     {
 
         DatabaseServico<Tarefa> _tarefaService;
 
-        public ICommand AlertCommand { get; set; }
+        public ICommand NavigateToDetailCommand { get; private set; }
 
         public MainPage()
         {
             InitializeComponent();
             _tarefaService = new DatabaseServico<Tarefa>(Db.DB_PATH);
 
-            AlertCommand = new Command<Tarefa>(ExecuteAlertCommand);
+            NavigateToDetailCommand = new Command<Tarefa>(async (tarefa) => await NavigateToDetail(tarefa));
             TarefasCollectionTable.BindingContext = this;
 
             CarregarTarefas();
         }
 
-        private void ExecuteAlertCommand(Tarefa tarefa)
+        private async Task NavigateToDetail(Tarefa task)
         {
-            DisplayAlert("Alerta", $"Tarefa: {tarefa.Titulo}", "OK");
+            await Navigation.PushAsync(new TarefasDetalhesPage(task));
         }
 
         private async void CarregarTarefas()
